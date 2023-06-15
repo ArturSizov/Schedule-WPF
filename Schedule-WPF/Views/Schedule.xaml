@@ -17,15 +17,14 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="130"/>
+            <RowDefinition Height="80"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Vertical">
 
-            <TextBlock  Text="{Binding DateTimeNow}"/>
-            <TextBlock  Text="{Binding DateTimeNow}"/>
-            <TextBlock  Text="{Binding DateTimeNow}"/>
+            <TextBlock  Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat={}{0:MMM} {0:HH} h. {0:ddd}}"
+                        Margin="5"/>
 
             <Canvas Grid.Row="0">
                 <Canvas.Background>
