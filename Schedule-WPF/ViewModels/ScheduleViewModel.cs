@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Schedule_WPF.ViewModels
+﻿namespace Schedule_WPF.ViewModels
 {
     public class ScheduleViewModel
     {
-        
+
+        #region Public property 
+        public string Title => "Schedule";
+        #endregion
     }
 }
