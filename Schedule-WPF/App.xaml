@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:Schedule_WPF"
              xmlns:prism="http://prismlibrary.com/">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CustomControls/Styles/Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </prism:PrismApplication>

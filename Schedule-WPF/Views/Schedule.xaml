@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cusCon="clr-namespace:Schedule_WPF.CustomControls.Controls"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:prism="http://prismlibrary.com/" 
         prism:ViewModelLocator.AutoWireViewModel="True"
@@ -11,45 +12,52 @@
         mc:Ignorable="d"
         Height="650" 
         Width="1024"
+        FontSize="14"
         Title="{Binding Title}"
         WindowStartupLocation="CenterScreen" 
         Background="#FFFFF0">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="90"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Vertical">
+        <TextBlock Grid.Row="0"
+                   Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat={}{0:MMM} {0:HH} h. {0:ddd}}"
+                   Margin="5"/>
+        <Grid Grid.Row="0">
+            <cusCon:Ruler Margin="5,30,0,0"></cusCon:Ruler>
+            <StackPanel VerticalAlignment="Bottom">
+                <StackPanel Orientation="Horizontal" 
+                            Height="40" 
+                            Background="#D3D3D3"
+                            VerticalAlignment="Top">
+                    <Image Height="30" Width="30" Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
+                    <TextBlock Text="{Binding Pending, StringFormat=0 Pending}"
+                           VerticalAlignment="Center"/>
 
-            <TextBlock  Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat={}{0:MMM} {0:HH} h. {0:ddd}}"
-                        Margin="5"/>
+                    <Image Height="30" Width="30" Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
+                    <TextBlock Text="{Binding Jeopardy, StringFormat=0 Jeopardy}"
+                           VerticalAlignment="Center"/>
 
-            <Canvas Grid.Row="0">
-                <Canvas.Background>
-                    <DrawingBrush TileMode="Tile" Viewport="-60,-30,100,30" 
-                                     ViewportUnits="Absolute">
-                        <DrawingBrush.Drawing>
-                            <GeometryDrawing>
-                                <GeometryDrawing.Geometry>
-                                    <RectangleGeometry Rect="0,0,50,50"/>
-                                </GeometryDrawing.Geometry>
-                                <GeometryDrawing.Pen>
-                                    <Pen Brush="#DCDCDC" Thickness="1"/>
-                                </GeometryDrawing.Pen>
-                            </GeometryDrawing>
-                        </DrawingBrush.Drawing>
-                    </DrawingBrush>
-                </Canvas.Background>
-            </Canvas>
-        </StackPanel>
+                    <Image Height="30" Width="30" Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
+                    <TextBlock Text="{Binding Completed, StringFormat=0 Completed}"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+            <Button Style="{StaticResource RoundButton}" 
+                    Content="Generate Scedule" 
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,10,7" />
+            
+        </Grid>
 
-        
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible">
             <Canvas>
                 <Canvas.Background>
-                    <DrawingBrush TileMode="Tile" Viewport="-60,-30,100,30" 
+                    <DrawingBrush TileMode="Tile" Viewport="-95,-30,100,30" 
                                      ViewportUnits="Absolute">
                         <DrawingBrush.Drawing>
                             <GeometryDrawing>
@@ -65,6 +73,5 @@
                 </Canvas.Background>
             </Canvas>
         </ScrollViewer>
-        
     </Grid>
 </Window>
