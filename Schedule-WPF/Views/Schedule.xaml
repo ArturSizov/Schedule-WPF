@@ -27,7 +27,7 @@
                    Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat={}{0:MMM} {0:HH} h. {0:ddd}}"
                    Margin="5"/>
         <Grid Grid.Row="0">
-            <cusCon:Ruler Margin="5,30,0,0"></cusCon:Ruler>
+            <cusCon:Ruler Margin="5,30,0,0" Number="80"/>
             <StackPanel VerticalAlignment="Bottom">
                 <StackPanel Orientation="Horizontal" 
                             Height="40" 
@@ -36,7 +36,6 @@
                     <Image Height="30" Width="30" Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
                     <TextBlock Text="{Binding Pending, StringFormat=0 Pending}"
                            VerticalAlignment="Center"/>
-
                     <Image Height="30" Width="30" Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
                     <TextBlock Text="{Binding Jeopardy, StringFormat=0 Jeopardy}"
                            VerticalAlignment="Center"/>
@@ -57,7 +56,7 @@
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible">
             <Canvas>
                 <Canvas.Background>
-                    <DrawingBrush TileMode="Tile" Viewport="-95,-30,100,30" 
+                    <DrawingBrush TileMode="Tile" Viewport="-120,-30,125,30" 
                                      ViewportUnits="Absolute">
                         <DrawingBrush.Drawing>
                             <GeometryDrawing>
