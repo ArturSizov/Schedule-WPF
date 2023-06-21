@@ -12,6 +12,6 @@ namespace Schedule_WPF
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterDialog<ScheduleViewModel>();
-        }
+        } 
     }
 }

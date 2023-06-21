@@ -11,6 +11,7 @@ namespace Schedule_WPF.ViewModels
         private int pending = 12;
         private int jeopardy;
         private int completed;
+        private string? minutes = "65";
 
         #endregion
 
@@ -19,8 +20,8 @@ namespace Schedule_WPF.ViewModels
         public DateTime DateTimeNow => DateTime.Now;
         public int Pending { get => pending; set => SetProperty(ref pending, value); }
         public int Jeopardy { get => jeopardy; set => SetProperty(ref jeopardy, value); }
-        public int Completed { get => completed; set => SetProperty(ref completed, value); } 
-
+        public int Completed { get => completed; set => SetProperty(ref completed, value); }
+        public string Minutes { get => minutes!; set => SetProperty(ref minutes, value); } 
         #endregion
     }
 }

@@ -23,7 +23,6 @@ namespace Schedule_WPF.CustomControls.Controls
         }
         #endregion
 
-
         #region DependencyProperty
         public static readonly DependencyProperty NumberProperty = DependencyProperty.Register(nameof(Number), typeof(string), typeof(Ruler),
         new PropertyMetadata(NumberPropertyChanged));

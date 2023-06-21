@@ -26,51 +26,67 @@
         <TextBlock Grid.Row="0"
                    Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat={}{0:MMM} {0:HH} h. {0:ddd}}"
                    Margin="5"/>
-        <Grid Grid.Row="0">
-            <cusCon:Ruler Margin="5,30,0,0" Number="80"/>
-            <StackPanel VerticalAlignment="Bottom">
-                <StackPanel Orientation="Horizontal" 
-                            Height="40" 
-                            Background="#D3D3D3"
-                            VerticalAlignment="Top">
-                    <Image Height="30" Width="30" Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
-                    <TextBlock Text="{Binding Pending, StringFormat=0 Pending}"
-                           VerticalAlignment="Center"/>
-                    <Image Height="30" Width="30" Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
-                    <TextBlock Text="{Binding Jeopardy, StringFormat=0 Jeopardy}"
-                           VerticalAlignment="Center"/>
-
-                    <Image Height="30" Width="30" Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
-                    <TextBlock Text="{Binding Completed, StringFormat=0 Completed}"
-                               VerticalAlignment="Center"/>
-                </StackPanel>
-            </StackPanel>
-            <Button Style="{StaticResource RoundButton}" 
-                    Content="Generate Scedule" 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Margin="0,0,10,7" />
-            
-        </Grid>
-
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible">
-            <Canvas>
-                <Canvas.Background>
-                    <DrawingBrush TileMode="Tile" Viewport="-120,-30,125,30" 
-                                     ViewportUnits="Absolute">
-                        <DrawingBrush.Drawing>
-                            <GeometryDrawing>
-                                <GeometryDrawing.Geometry>
-                                    <RectangleGeometry Rect="0,0,50,50"/>
-                                </GeometryDrawing.Geometry>
-                                <GeometryDrawing.Pen>
-                                    <Pen Brush="#DCDCDC" Thickness="1"/>
-                                </GeometryDrawing.Pen>
-                            </GeometryDrawing>
-                        </DrawingBrush.Drawing>
-                    </DrawingBrush>
-                </Canvas.Background>
-            </Canvas>
+        
+        <ScrollViewer Grid.Row="0" Name="sv2"
+                      HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Hidden"
+                      ScrollChanged="ScrollChanged">
+            <cusCon:Ruler Number="{Binding Minutes}" Margin="5,30,0,0"/>
         </ScrollViewer>
+        <StackPanel VerticalAlignment="Bottom">
+            <StackPanel Orientation="Horizontal" 
+                        Height="40" 
+                        Background="#D3D3D3"
+                        VerticalAlignment="Top">
+                <Image Height="30" Width="30" 
+                       Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
+                <TextBlock Text="{Binding Pending, StringFormat=0 Pending}"
+                           VerticalAlignment="Center"/>
+                <Image Height="30" Width="30" 
+                       Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
+                <TextBlock Text="{Binding Jeopardy, StringFormat=0 Jeopardy}"
+                           VerticalAlignment="Center"/>
+                <Image Height="30" Width="30" 
+                       Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
+                <TextBlock Text="{Binding Completed, StringFormat=0 Completed}"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+        <Button Style="{StaticResource RoundButton}"
+                Content="Generate Scedule" 
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,10,7" />
+        
+        
+        <ScrollViewer Grid.Row="1" Name="sv1"
+                      HorizontalScrollBarVisibility="Visible"
+                      ScrollChanged="ScrollChanged">
+            <Grid>
+                <cusCon:Ruler Number="{Binding Minutes}"
+                              Visibility="Hidden"/>
+                <Canvas>
+                    <Canvas.Background>
+                        <DrawingBrush TileMode="Tile" Viewport="-120,-30,125,30" 
+                                     ViewportUnits="Absolute">
+                            <DrawingBrush.Drawing>
+                                <GeometryDrawing>
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry Rect="0,0,50,50"/>
+                                    </GeometryDrawing.Geometry>
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#DCDCDC" Thickness="1"/>
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Canvas.Background>
+                </Canvas>
+            </Grid>
+        </ScrollViewer>
+        
+        <cusCon:DividingLine 
+                Grid.RowSpan="2"
+                Margin="0,0,0,15"/>
     </Grid>
 </Window>
