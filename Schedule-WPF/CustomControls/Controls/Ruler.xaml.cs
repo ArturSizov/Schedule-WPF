@@ -60,7 +60,6 @@ namespace Schedule_WPF.CustomControls.Controls
             line.Stroke = Brushes.Black;
             return line;
         }
-
         private Grid CreateRoler()
         {
             var grid = new Grid();

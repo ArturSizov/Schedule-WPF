@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cusCon="clr-namespace:Schedule_WPF.CustomControls.Controls"
+        xmlns:scroll="clr-namespace:Schedule_WPF.CustomControls.Scroll"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:prism="http://prismlibrary.com/" 
         prism:ViewModelLocator.AutoWireViewModel="True"
@@ -22,10 +23,11 @@
             <RowDefinition Height="90"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
         <!--#region Grid.Row1-->
         <TextBlock Grid.Row="0"
                    Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat={}{0:MMM} {0:HH} h. {0:ddd}}"
+                   Panel.ZIndex="1"
                    Margin="5"/>
         <ScrollViewer Grid.Row="0" 
                       HorizontalScrollBarVisibility="Hidden"
@@ -63,7 +65,8 @@
         <!--#region Grid.Row2-->
         <ScrollViewer Grid.Row="1"
                       HorizontalScrollBarVisibility="Visible"
-                      cusCon:ScrollSynchronizer.ScrollGroup="Group">
+                      cusCon:ScrollSynchronizer.ScrollGroup="Group"
+                      scroll:ScrollPositionBehavior.HorizontalOffset="{Binding ScrollPosition, UpdateSourceTrigger=PropertyChanged}">
             <Grid>
                 <cusCon:Ruler Number="{Binding Minutes}"
                               Visibility="Hidden"/>
@@ -84,16 +87,12 @@
                         </DrawingBrush>
                     </Canvas.Background>
                 </Canvas>
+                <Canvas Grid.Row="0" Grid.RowSpan="2" >
+                    <cusCon:DividingLine Margin="-10,0,0,17"
+                                 Canvas.Left="{Binding Minute, UpdateSourceTrigger=PropertyChanged}"/>
+                </Canvas>
             </Grid>
         </ScrollViewer>
         <!--#endregion-->
-
-        <Canvas>
-            <cusCon:DividingLine Grid.RowSpan="2"
-                                 Margin="0,0,0,17"
-                                 InkCanvas.Left="125"
-                                 Canvas.Left="{Binding Minute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        </Canvas>
-        
     </Grid>
 </Window>

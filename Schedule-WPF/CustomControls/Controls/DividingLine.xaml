@@ -4,10 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d">
-
-
-    <Grid x:Name="gr" Width="10" Height="550" HorizontalAlignment="Left">
-        <Polygon Fill="Yellow"  Points="0,0 13,25, 25,0" HorizontalAlignment="Center"  StrokeThickness="0"/>
-        <Rectangle Fill="Yellow" Width="2" Height="Auto" StrokeThickness="1"/>
+    
+    <Grid Width="30" Height="850" HorizontalAlignment="Left">
+        <Polygon Fill="Yellow"  
+                 Points="0,0 13,20, 25,0" 
+                 HorizontalAlignment="Center"  
+                 StrokeThickness="0"/>
+        <Rectangle Fill="Yellow" 
+                   Width="3"
+                   StrokeThickness="0"/>
     </Grid>
 </Grid>

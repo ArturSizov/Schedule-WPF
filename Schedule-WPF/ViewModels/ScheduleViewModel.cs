@@ -1,5 +1,4 @@
-﻿using NodaTime;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using System;
 using System.Timers;
 
@@ -14,6 +13,7 @@ namespace Schedule_WPF.ViewModels
         private int completed;
         private string? minutes = "65";
         private int minute;
+        private int scrollPosition;
 
         #endregion
 
@@ -25,6 +25,7 @@ namespace Schedule_WPF.ViewModels
         public int Completed { get => completed; set => SetProperty(ref completed, value); }
         public string Minutes { get => minutes!; set => SetProperty(ref minutes, value); }
         public int Minute { get => minute; set => SetProperty(ref minute, value); }
+        public int ScrollPosition { get => scrollPosition; set => SetProperty(ref scrollPosition, value); } 
         #endregion
 
         public ScheduleViewModel()
@@ -34,18 +35,19 @@ namespace Schedule_WPF.ViewModels
 
 
         #region Methods 
-        private void SetDividingLinePosition(object sender, ElapsedEventArgs e)
+        private void SetPosition(object sender, ElapsedEventArgs e)
         {
             Minute = DateTime.Now.Minute * 25;
+            ScrollPosition = Minute/25*10;
             RaisePropertyChanged(nameof(Minute));
+            RaisePropertyChanged(nameof(ScrollPosition));
         }
-
         private void StartTimer()
         {
-            SetDividingLinePosition(null, null);
+            SetPosition(null, null);
             var timer = new Timer();
-            timer.Interval = 30000;
-            timer.Elapsed += SetDividingLinePosition;
+            timer.Interval = 10000;
+            timer.Elapsed += SetPosition;
             timer.Start();
         }
         #endregion
