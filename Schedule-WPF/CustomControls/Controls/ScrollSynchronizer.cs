@@ -19,7 +19,6 @@ namespace Schedule_WPF.CustomControls.Controls
                                new PropertyMetadata(new PropertyChangedCallback(OnScrollGroupChanged)));
         #endregion
 
-
         #region Methods 
         public static void SetScrollGroup(DependencyObject obj, string scrollGroup)
         {

@@ -8,5 +8,6 @@ namespace Schedule_WPF.CustomControls.Controls
         {
             InitializeComponent();
         }
+        
     }
 }

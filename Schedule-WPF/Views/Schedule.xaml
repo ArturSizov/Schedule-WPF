@@ -27,19 +27,18 @@
         <TextBlock Grid.Row="0"
                    Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat={}{0:MMM} {0:HH} h. {0:ddd}}"
                    Margin="5"/>
-        
-        <ScrollViewer Grid.Row="0" Name="sub"
+        <ScrollViewer Grid.Row="0" 
                       HorizontalScrollBarVisibility="Hidden"
                       VerticalScrollBarVisibility="Hidden"
                       cusCon:ScrollSynchronizer.ScrollGroup="Group">
-            <cusCon:Ruler Number="{Binding Minutes}" Margin="5,30,0,0"/>
+            <cusCon:Ruler Number="{Binding Minutes}" Margin="5,30,1,0"/>
         </ScrollViewer>
         <StackPanel VerticalAlignment="Bottom">
             <StackPanel Orientation="Horizontal" 
                         Height="40" 
                         Background="#D3D3D3"
                         VerticalAlignment="Top">
-                <Image Height="30" Width="30" 
+                <Image Height="30" Width="30"
                        Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
                 <TextBlock Text="{Binding Pending, StringFormat=0 Pending}"
                            VerticalAlignment="Center"/>
@@ -54,6 +53,7 @@
             </StackPanel>
         </StackPanel>
         <Button Style="{StaticResource RoundButton}"
+                Panel.ZIndex="1"
                 Content="Generate Scedule" 
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
@@ -61,7 +61,7 @@
         <!--#endregion-->
 
         <!--#region Grid.Row2-->
-        <ScrollViewer Grid.Row="1" Name="main"
+        <ScrollViewer Grid.Row="1"
                       HorizontalScrollBarVisibility="Visible"
                       cusCon:ScrollSynchronizer.ScrollGroup="Group">
             <Grid>
@@ -87,9 +87,13 @@
             </Grid>
         </ScrollViewer>
         <!--#endregion-->
+
+        <Canvas>
+            <cusCon:DividingLine Grid.RowSpan="2"
+                                 Margin="0,0,0,17"
+                                 InkCanvas.Left="125"
+                                 Canvas.Left="{Binding Minute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Canvas>
         
-        <cusCon:DividingLine 
-                Grid.RowSpan="2"
-                Margin="0,0,0,15"/>
     </Grid>
 </Window>
