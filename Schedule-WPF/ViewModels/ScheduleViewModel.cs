@@ -25,7 +25,9 @@ namespace Schedule_WPF.ViewModels
         public int Completed { get => completed; set => SetProperty(ref completed, value); }
         public string Minutes { get => minutes!; set => SetProperty(ref minutes, value); }
         public int Minute { get => minute; set => SetProperty(ref minute, value); }
-        public int ScrollPosition { get => scrollPosition; set => SetProperty(ref scrollPosition, value); } 
+        public int ScrollPosition { get => scrollPosition; set => SetProperty(ref scrollPosition, value); }
+
+        public string Test => "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww";
         #endregion
 
         public ScheduleViewModel()

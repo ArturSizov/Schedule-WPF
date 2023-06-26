@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Schedule_WPF.CustomControls.Controls
+namespace Schedule_WPF.CustomControls.Scroll
 {
     public class ScrollSynchronizer : DependencyObject
     {

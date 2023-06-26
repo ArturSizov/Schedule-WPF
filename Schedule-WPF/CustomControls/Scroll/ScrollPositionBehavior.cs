@@ -5,6 +5,13 @@ namespace Schedule_WPF.CustomControls.Scroll
 {
     public static class ScrollPositionBehavior
     {
+
+        #region Private Dependency
+        private static readonly DependencyProperty IsScrollPositionBoundProperty = DependencyProperty.RegisterAttached("IsScrollPositionBound", typeof(bool?), typeof(ScrollPositionBehavior));
+
+        #endregion
+
+        #region Public Dependency
         public static readonly DependencyProperty HorizontalOffsetProperty = DependencyProperty.RegisterAttached("HorizontalOffset",
                 typeof(double),
                 typeof(ScrollPositionBehavior),
@@ -19,9 +26,9 @@ namespace Schedule_WPF.CustomControls.Scroll
                     double.NaN,
                     FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                     OnVerticalOffsetPropertyChanged));
+        #endregion
 
-        private static readonly DependencyProperty IsScrollPositionBoundProperty = DependencyProperty.RegisterAttached("IsScrollPositionBound", typeof(bool?), typeof(ScrollPositionBehavior));
-
+        #region Methods 
         public static void BindOffset(ScrollViewer scrollViewer)
         {
             if (scrollViewer.GetValue(IsScrollPositionBoundProperty) is true)
@@ -97,5 +104,6 @@ namespace Schedule_WPF.CustomControls.Scroll
             scrollViewer.Loaded -= ScrollViewer_Loaded;
             scrollViewer.Unloaded -= ScrollViewer_Unloaded;
         }
+        #endregion
     }
 }
