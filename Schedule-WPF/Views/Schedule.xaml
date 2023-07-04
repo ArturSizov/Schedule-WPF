@@ -14,100 +14,86 @@
         Height="650" 
         Width="1024"
         FontSize="14"
+        x:Name="win"
         Title="{Binding Title}"
         WindowStartupLocation="CenterScreen" 
         Background="#FFFFF0">
+
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="90"/>
             <RowDefinition/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
 
-        <!--#region Grid.Row1-->
-        <TextBlock Grid.Row="0"
-                   Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat={}{0:MMM} {0:HH} h. {0:ddd}}"
+        <!--#region Top panel-->
+        <TextBlock Grid.Row="0" 
                    Panel.ZIndex="1"
-                   Margin="5"/>
-        <ScrollViewer Grid.Row="0" 
-                      HorizontalScrollBarVisibility="Hidden"
-                      VerticalScrollBarVisibility="Hidden"
-                      scroll:ScrollSynchronizer.ScrollGroup="Group">
-            <cusCon:Ruler Number="{Binding Minutes}" Margin="5,30,1,0"/>
-        </ScrollViewer>
-        <StackPanel VerticalAlignment="Bottom">
-            <StackPanel Orientation="Horizontal" 
-                        Height="40" 
-                        Background="#D3D3D3"
-                        VerticalAlignment="Top">
-                <Image Height="30" Width="30"
-                       Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
-                <TextBlock Text="{Binding Pending, StringFormat=0 Pending}"
-                           VerticalAlignment="Center"/>
-                <Image Height="30" Width="30" 
-                       Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
-                <TextBlock Text="{Binding Jeopardy, StringFormat=0 Jeopardy}"
-                           VerticalAlignment="Center"/>
-                <Image Height="30" Width="30" 
-                       Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
-                <TextBlock Text="{Binding Completed, StringFormat=0 Completed}"
-                           VerticalAlignment="Center"/>
-            </StackPanel>
+                   Padding="5,5,0,0"
+                   Margin="2,2,2,2"
+                   Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat={}{0:MMM} {0:HH} h. {0:ddd}}"/>
+
+        <StackPanel Grid.Row="0"
+                    Margin="0,48,0,0" Orientation="Horizontal" 
+                    Height="40" 
+                    Background="#D3D3D3"
+                    VerticalAlignment="Top">
+            <Image Height="30" Width="30"
+                   Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
+            <TextBlock Text="{Binding Pending, StringFormat=0 Pending}"
+                       VerticalAlignment="Center"/>
+            <Image Height="30" 
+                   Width="30" 
+                   Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
+            <TextBlock Text="{Binding Jeopardy, StringFormat=0 Jeopardy}"
+                       VerticalAlignment="Center"/>
+            <Image Height="30" Width="30" 
+                   Source="https://w.forfun.com/fetch/39/399f74771a37da97630f86e85696f882.jpeg"/>
+            <TextBlock Text="{Binding Completed, StringFormat=0 Completed}"
+                       VerticalAlignment="Center"/>
+
         </StackPanel>
-        <Button Style="{StaticResource RoundButton}"
+
+        <Button Grid.Row="0"
+                Style="{StaticResource RoundButton}"
                 Panel.ZIndex="1"
-                Content="Generate Scedule" 
+                Content="Generate Scedule"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Margin="0,0,10,7" />
+                VerticalAlignment="Top"
+                Margin="0,55,10,0"/>
         <!--#endregion-->
 
-        <!--#region Grid.Row2-->
-        <ScrollViewer Grid.Row="1"
-                      VerticalScrollBarVisibility="Visible"
-                      HorizontalScrollBarVisibility="Visible"
-                      scroll:ScrollSynchronizer.ScrollGroup="Group"
-                      scroll:ScrollPositionBehavior.HorizontalOffset="{Binding ScrollPosition, UpdateSourceTrigger=PropertyChanged}">
-            <Grid>
-                <cusCon:Ruler Number="{Binding Minutes}"
-                              Visibility="Hidden"/>
-                <Canvas>
-                    <Canvas.Background>
-                        <DrawingBrush TileMode="Tile" Viewport="-120,-30,125,30" 
-                                     ViewportUnits="Absolute">
-                            <DrawingBrush.Drawing>
-                                <GeometryDrawing>
-                                    <GeometryDrawing.Geometry>
-                                        <RectangleGeometry Rect="0,0,50,50"/>
-                                    </GeometryDrawing.Geometry>
-                                    <GeometryDrawing.Pen>
-                                        <Pen Brush="#DCDCDC" Thickness="1"/>
-                                    </GeometryDrawing.Pen>
-                                </GeometryDrawing>
-                            </DrawingBrush.Drawing>
-                        </DrawingBrush>
-                    </Canvas.Background>
-                </Canvas>
-                <!--<Canvas Grid.Row="0" Grid.RowSpan="2" >
-                    <cusCon:DividingLine Margin="-10,0,0,17"
-                                 Canvas.Left="{Binding Minute, UpdateSourceTrigger=PropertyChanged}"/>
-                </Canvas>-->
-            </Grid>
-        </ScrollViewer>
+        <!--#region Ruler-->
+        <cusCon:Ruler Grid.Row="0"
+                      x:Name="ruler"
+                      Number="65"
+                      Margin="2,30,0,0"
+                      Position="{Binding ElementName=slider, Path=Value}"/>
         <!--#endregion-->
-        <ScrollViewer Grid.Row="1" 
-                      scroll:ScrollSynchronizer.ScrollGroup="Group"
-                      HorizontalScrollBarVisibility="Visible"
-                      VerticalScrollBarVisibility="Visible">
-            <Canvas>
-                <cusCon:DividingLine Margin="-10,0,0,17"
-                                     Canvas.Left="{Binding Minute, UpdateSourceTrigger=PropertyChanged}"/>
-            </Canvas>
-        </ScrollViewer>
-        <!--<Canvas Grid.Row="0" Grid.RowSpan="2" >
-            <cusCon:DividingLine Margin="-10,0,0,17"
-                                 Canvas.Left="{Binding Minute, UpdateSourceTrigger=PropertyChanged}"/>
-        </Canvas>-->
 
+        <!--#region Dividing line-->
+        <Canvas Grid.Row="0">
+            <cusCon:DividingLine
+                Margin='-10 0 0 0'
+                    Position="{Binding Minute, UpdateSourceTrigger=PropertyChanged}"
+                    Canvas.Left="{Binding ElementName=slider, Path=Value}"/>
+        </Canvas>
+        <!--#endregion-->
+
+        <!--#region Grid-->
+        <TextBlock Grid.Row="1" Text="{Binding ElementName=slider, Path=Value}"></TextBlock>
+        <!--#endregion-->
+
+        <!--#region Slider-->
+        <Slider x:Name="slider"
+                Style="{DynamicResource CustomSlider}" 
+                Grid.Row="2"
+                Maximum="10"
+                Margin='5 0 5 0'
+                Value="{Binding ScrollPosition, UpdateSourceTrigger=PropertyChanged}"
+                SmallChange="25"></Slider>
+
+        <!--#endregion-->
     </Grid>
 </Window>
