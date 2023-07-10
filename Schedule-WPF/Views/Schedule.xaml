@@ -6,6 +6,7 @@
         xmlns:cusCon="clr-namespace:Schedule_WPF.CustomControls.Controls"
         xmlns:scroll="clr-namespace:Schedule_WPF.CustomControls.Scroll"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:converter="clr-namespace:Schedule_WPF.Services.Converters"
         xmlns:prism="http://prismlibrary.com/" 
         prism:ViewModelLocator.AutoWireViewModel="True"
         xmlns:viewmodels="clr-namespace:Schedule_WPF.ViewModels"
@@ -19,7 +20,9 @@
         WindowStartupLocation="CenterScreen" 
         Background="#FFFFF0">
 
-
+    <Window.Resources>
+        <converter:SliderMinimumConverter x:Key="SliderMinimumConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="90"/>
@@ -32,7 +35,7 @@
                    Panel.ZIndex="1"
                    Padding="5,5,0,0"
                    Margin="2,2,2,2"
-                   Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat={}{0:MMM} {0:HH} h. {0:ddd}}"/>
+                   Text="{Binding MainWindowDate, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:dd} {0:MMM} {0:HH} h. {0:ddd}}"/>
 
         <StackPanel Grid.Row="0"
                     Margin="0,48,0,0" Orientation="Horizontal" 
@@ -67,33 +70,37 @@
         <!--#region Ruler-->
         <cusCon:Ruler Grid.Row="0"
                       x:Name="ruler"
-                      Number="65"
                       Margin="2,30,0,0"
+                      Watch="{Binding Dates.Count, UpdateSourceTrigger=PropertyChanged}"
                       Position="{Binding ElementName=slider, Path=Value}"/>
         <!--#endregion-->
 
         <!--#region Dividing line-->
-        <Canvas Grid.Row="0">
-            <cusCon:DividingLine
-                Margin='-10 0 0 0'
-                    Position="{Binding Minute, UpdateSourceTrigger=PropertyChanged}"
-                    Canvas.Left="{Binding ElementName=slider, Path=Value}"/>
-        </Canvas>
+        
+        <cusCon:DividingLine
+                    Grid.Row="0"
+                    Margin='-10 0 0 0'
+                    Minute="{Binding Minute, UpdateSourceTrigger=PropertyChanged}"
+                    Position="{Binding ElementName=slider, Path=Value}"/>
         <!--#endregion-->
 
         <!--#region Grid-->
-        <TextBlock Grid.Row="1" Text="{Binding ElementName=slider, Path=Value}"></TextBlock>
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <TextBlock Text="{Binding ElementName=slider, Path=Value}"/>
+            <TextBlock Text="{Binding MainWindowDate, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
         <!--#endregion-->
 
         <!--#region Slider-->
-        <Slider x:Name="slider"
-                Style="{DynamicResource CustomSlider}" 
-                Grid.Row="2"
-                Maximum="10"
-                Margin='5 0 5 0'
-                Value="{Binding ScrollPosition, UpdateSourceTrigger=PropertyChanged}"
-                SmallChange="25"></Slider>
-
+        <Slider Grid.Row="2"
+                Margin='2 0 2 0'
+                x:Name="slider"
+                Value="{Binding SliderPosition, UpdateSourceTrigger=PropertyChanged}"
+                Style="{DynamicResource CustomSlider}"
+                TickPlacement="BottomRight"
+                Maximum="{Binding Dates.Count}" 
+                Minimum="0"/>
         <!--#endregion-->
     </Grid>
 </Window>

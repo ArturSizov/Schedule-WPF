@@ -5,15 +5,17 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d">
 
-    <Grid x:Name="grid" 
-          Height="1650">
-        <Polygon Fill="Yellow"
+    <Canvas x:Name="canvas">
+        <Grid x:Name="minute" 
+              Height="1650">
+            <Polygon Fill="Yellow"
                  Points="0,0 13,20, 25,0"  
                  StrokeThickness="0"/>
-        <Rectangle Fill="Yellow"
+            <Rectangle Fill="Yellow"
                    Width="3"
                    StrokeThickness="0" 
                    Margin="10.8,0,10,0"/>
-    </Grid>
+        </Grid>
+    </Canvas>
 
 </Canvas>

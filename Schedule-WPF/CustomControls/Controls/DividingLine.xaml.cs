@@ -14,26 +14,47 @@ namespace Schedule_WPF.CustomControls.Controls
                 SetValue(PositionProperty, value);
             }
         }
+        public int Minute
+        {
+            get => (int)GetValue(MinuteProperty);
+            set
+            {
+                SetValue(MinuteProperty, value);
+            }
+        }
         #endregion
         public DividingLine()
         {
             InitializeComponent();
+            SetPosition();
         }
 
         #region DependencyProperty
+        public static readonly DependencyProperty MinuteProperty = DependencyProperty.Register(nameof(Minute), typeof(int), typeof(DividingLine),
+                               new PropertyMetadata(MinutePropertyChanged));
         public static readonly DependencyProperty PositionProperty = DependencyProperty.Register(nameof(Position), typeof(int), typeof(DividingLine),
-                               new PropertyMetadata(PositionPropertyChanged));
+                              new PropertyMetadata(PositionPropertyChanged));
         #endregion
 
-
-        #region Methods 
+        #region Envets 
         private static void PositionPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((DividingLine)d).PositionPropertyChanged();
+            ((DividingLine)d).SetPosition();
         }
-        private void PositionPropertyChanged()
+        private static void MinutePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            SetLeft(grid, Position);
+            ((DividingLine)d).SetMinute();
+        }
+        #endregion
+
+        #region Methods 
+        private void SetMinute()
+        {
+            SetLeft(minute, Minute);
+        }
+        private void SetPosition()
+        {
+            SetLeft(canvas, -Position);
         }
         #endregion
     }

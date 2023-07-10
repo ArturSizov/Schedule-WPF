@@ -10,18 +10,10 @@ namespace Schedule_WPF.CustomControls.Controls
     {
         #region Private propery 
         private int count = 0;
+        
         #endregion
 
-        #region Public property 
-        public string Number
-        {
-            get => (string)GetValue(NumberProperty);
-            set
-            {
-                SetValue(NumberProperty, value); 
-            }
-        }
-
+        #region Public property
         public int Position
         {
             get => (int)GetValue(PositionProperty);
@@ -30,14 +22,23 @@ namespace Schedule_WPF.CustomControls.Controls
                 SetValue(PositionProperty, value);
             }
         }
+        public int Watch
+        {
+            get => (int)GetValue(WatchProperty);
+            set
+            {
+                SetValue(WatchProperty, value);
+            }
+        }
+
         #endregion
 
         #region DependencyProperty
-        public static readonly DependencyProperty NumberProperty = DependencyProperty.Register(nameof(Number), typeof(string), typeof(Ruler),
-                               new PropertyMetadata(NumberPropertyChanged));
 
         public static readonly DependencyProperty PositionProperty = DependencyProperty.Register(nameof(Position), typeof(int), typeof(Ruler),
                                new PropertyMetadata(PositionPropertyChanged));
+        public static readonly DependencyProperty WatchProperty = DependencyProperty.Register(nameof(Watch), typeof(int), typeof(Ruler),
+                              new PropertyMetadata(WatchPropertyChanged));
         #endregion
 
         public Ruler()
@@ -45,34 +46,38 @@ namespace Schedule_WPF.CustomControls.Controls
             InitializeComponent();
         }
 
-        #region Methods 
-        private static void NumberPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        #region Events
+        private static void PositionPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((Ruler)d).NumberPropertyChanged();
+            ((Ruler)d).SetPosition();
         }
-
-        private void NumberPropertyChanged()
+        private static void WatchPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var n = Convert.ToInt32(Number) / 5;
+            ((Ruler)d).CreateWatch();
+        }
+        #endregion
 
-            //if (n == 0) throw new Exception("Ruler value 0");
+        #region Methods 
+        private StackPanel CreateFullRuler()
+        {
+            var stackPanel = new StackPanel();
+
+            stackPanel.Orientation = Orientation.Horizontal;
+
+            var n = Convert.ToInt32(60) / 5;
+
+            if (n == 0) throw new Exception("Ruler value 0");
 
             for (int i = 0; i < n; i++)
             {
-                sp.Children.Add(CreateRoler());
+                stackPanel.Children.Add(CreateOneRuler());
                 count = count + 5;
             }
-        }
-
-        private static void PositionPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+            return stackPanel;
+        }      
+        private void SetPosition()
         {
-            ((Ruler)d).PositionPropertyChanged();
-        }
-        private void PositionPropertyChanged()
-        {
-            var pos = Position;
-
-            SetLeft(sp, pos);
+            SetLeft(sp, -Position);
         }
         private Line CreateLine(int x1, int y1, int x2, int y2)
         {
@@ -84,7 +89,7 @@ namespace Schedule_WPF.CustomControls.Controls
             line.Stroke = Brushes.Black;
             return line;
         }
-        private Grid CreateRoler()
+        private Grid CreateOneRuler()
         {
             var grid = new Grid();
             var text = new TextBlock();
@@ -100,6 +105,14 @@ namespace Schedule_WPF.CustomControls.Controls
             grid.Children.Add(CreateLine(125, 0, 125, 0));
 
             return grid;
+        }
+        private void CreateWatch()
+        {
+            for (int i = 0; i < Watch; i++)
+            {
+                count = 0;
+                sp.Children.Add(CreateFullRuler());
+            }
         }
         #endregion
     }
