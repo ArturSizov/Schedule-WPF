@@ -21,7 +21,7 @@
         Background="#FFFFF0">
 
     <Window.Resources>
-        <converter:SliderMinimumConverter x:Key="SliderMinimumConverter"/>
+        <converter:SliderMaximumConverter x:Key="SliderMaximumConverter"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -99,8 +99,14 @@
                 Value="{Binding SliderPosition, UpdateSourceTrigger=PropertyChanged}"
                 Style="{DynamicResource CustomSlider}"
                 TickPlacement="BottomRight"
-                Maximum="{Binding Dates.Count}" 
-                Minimum="0"/>
+                Minimum="0">
+            <Slider.Maximum>
+                <MultiBinding Converter="{StaticResource SliderMaximumConverter}">
+                    <Binding Path="Dates.Count"/>
+                    <Binding ElementName="win" Path="ActualWidth"/>
+                </MultiBinding>
+            </Slider.Maximum>
+        </Slider>
         <!--#endregion-->
     </Grid>
 </Window>

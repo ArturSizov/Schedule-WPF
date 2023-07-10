@@ -40,15 +40,12 @@ namespace Schedule_WPF.ViewModels
         {
             get
             {
-                if (Dates.Count == sliderPosition)
-                    MainWindowDate = Dates[sliderPosition - 1];
+                //if (Dates.Count == sliderPosition)
+                //    MainWindowDate = Dates[sliderPosition - 1];
+                //else MainWindowDate = Dates[sliderPosition];
                 return sliderPosition;
             }
-
-            set
-            {
-                SetProperty(ref sliderPosition, value);
-            }
+            set => SetProperty(ref sliderPosition, value);
         }
         public ObservableCollection<Schedule> Schedules { get => schedules!; set => SetProperty(ref schedules, value); }
         #endregion
@@ -73,7 +70,7 @@ namespace Schedule_WPF.ViewModels
                     Jeopardy = false,
                     Id = 1,
                     StartDateTime = new DateTime(2023, 7, 4, 12, 30, 25),
-                    EndDateTime = new DateTime(2023, 7, 5, 19, 30, 25)
+                    EndDateTime = new DateTime(2023, 7, 4, 15, 30, 25)
                 }
             };
             StartApp();
