@@ -22,6 +22,7 @@
 
     <Window.Resources>
         <converter:SliderMaximumConverter x:Key="SliderMaximumConverter"/>
+        <converter:DividingLineVisibilityConverter x:Key="DividingLineVisibilityConverter"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -79,6 +80,7 @@
         
         <cusCon:DividingLine
                     Grid.Row="0"
+                    Visibility="{Binding VisibilityDividingLine, Converter={StaticResource DividingLineVisibilityConverter}}"
                     Margin='-10 0 0 0'
                     Minute="{Binding Minute, UpdateSourceTrigger=PropertyChanged}"
                     Position="{Binding ElementName=slider, Path=Value}"/>

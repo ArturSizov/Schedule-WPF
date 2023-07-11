@@ -22,6 +22,7 @@ namespace Schedule_WPF.ViewModels
         private int minute;
         private ObservableCollection<Schedule>? schedules = new();
         private int sliderPosition;
+        private bool visibilityDividingLine;
 
         #endregion
 
@@ -36,13 +37,23 @@ namespace Schedule_WPF.ViewModels
         public int Completed { get => completed; set => SetProperty(ref completed, value); }
         public string Minutes { get => minutes!; set => SetProperty(ref minutes, value); }
         public int Minute { get => minute; set => SetProperty(ref minute, value); }
+        public bool VisibilityDividingLine 
+        { 
+            get 
+            {
+                if (Dates.Any(d => d >= DateTime.Now))
+                    visibilityDividingLine = true;
+
+                return visibilityDividingLine; 
+            } 
+            set => SetProperty(ref visibilityDividingLine, value); }
         public int SliderPosition
         {
             get
             {
-                //if (Dates.Count == sliderPosition)
-                //    MainWindowDate = Dates[sliderPosition - 1];
-                //else MainWindowDate = Dates[sliderPosition];
+                if (Dates.Count == sliderPosition)
+                    MainWindowDate = Dates[(sliderPosition - 1) /1500];
+                else MainWindowDate = Dates[sliderPosition / 1500];
                 return sliderPosition;
             }
             set => SetProperty(ref sliderPosition, value);
@@ -60,8 +71,8 @@ namespace Schedule_WPF.ViewModels
                     Completed = true,
                     Jeopardy = false,
                     Id = 1,
-                    StartDateTime = new DateTime(2023, 7, 4, 10, 30, 25),
-                    EndDateTime = new DateTime(2023, 7, 4, 13, 30, 25)
+                    StartDateTime = new DateTime(2023, 7, 4, 10, 00, 00),
+                    EndDateTime = new DateTime(2023, 7, 4, 13, 00, 00)
                 },
                 new Schedule
                 {
@@ -69,9 +80,18 @@ namespace Schedule_WPF.ViewModels
                     Completed = true,
                     Jeopardy = false,
                     Id = 1,
-                    StartDateTime = new DateTime(2023, 7, 4, 12, 30, 25),
-                    EndDateTime = new DateTime(2023, 7, 4, 15, 30, 25)
-                }
+                    StartDateTime = new DateTime(2023, 7, 4, 12, 00, 00),
+                    EndDateTime = new DateTime(2023, 7, 4, 15, 00, 00)
+                },
+                new Schedule
+                {
+                    Pending = true,
+                    Completed = true,
+                    Jeopardy = false,
+                    Id = 1,
+                    StartDateTime = new DateTime(2023, 7, 14, 10, 00, 00),
+                    EndDateTime = new DateTime(2023, 7, 11, 16, 00, 00)
+                },
             };
             StartApp();
         }
@@ -95,9 +115,14 @@ namespace Schedule_WPF.ViewModels
 
         }
         private void SetPosition(object? sender, ElapsedEventArgs? e)
-        {         
-            Minute = DateTime.Now.Minute * 25;
-            //SliderPosition = Minute/25*10;
+        {
+            Minute = (int)DateTime.Now.Subtract(StartDateTime).TotalMinutes * 25;
+
+            //Minute = Dates.Count * 60 * 25;
+
+            //var min = DateTime.Now.Hour;
+
+            //SliderPosition = Minute;
             RaisePropertyChanged(nameof(Minute));
             RaisePropertyChanged(nameof(SliderPosition));
         }
