@@ -6,7 +6,7 @@
           xmlns:cusCon="clr-namespace:Schedule_WPF.CustomControls.Controls"
           mc:Ignorable="d" 
           d:DesignHeight="15" d:DesignWidth="50">
-
+    
     <StackPanel x:Name="sp"
                 Orientation="Horizontal"/>
 </Canvas>

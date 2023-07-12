@@ -23,6 +23,7 @@
     <Window.Resources>
         <converter:SliderMaximumConverter x:Key="SliderMaximumConverter"/>
         <converter:DividingLineVisibilityConverter x:Key="DividingLineVisibilityConverter"/>
+        <converter:SliderPositionConverter x:Key="SliderPositionConverter"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -73,31 +74,43 @@
                       x:Name="ruler"
                       Margin="2,30,0,0"
                       Watch="{Binding Dates.Count, UpdateSourceTrigger=PropertyChanged}"
-                      Position="{Binding ElementName=slider, Path=Value}"/>
+                      Position="{Binding SliderPosition, UpdateSourceTrigger=PropertyChanged}"/>
         <!--#endregion-->
 
         <!--#region Dividing line-->
-        
         <cusCon:DividingLine
                     Grid.Row="0"
+                    Panel.ZIndex="1"
                     Visibility="{Binding VisibilityDividingLine, Converter={StaticResource DividingLineVisibilityConverter}}"
                     Margin='-10 0 0 0'
-                    Minute="{Binding Minute, UpdateSourceTrigger=PropertyChanged}"
-                    Position="{Binding ElementName=slider, Path=Value}"/>
+                    Minute="{Binding Minute, UpdateSourceTrigger=PropertyChanged}" Position="{Binding SliderPosition}"/>
         <!--#endregion-->
 
         <!--#region Grid-->
-        <StackPanel Grid.Row="1" Orientation="Vertical">
-            <TextBlock Text="{Binding ElementName=slider, Path=Value}"/>
-            <TextBlock Text="{Binding MainWindowDate, UpdateSourceTrigger=PropertyChanged}"/>
-        </StackPanel>
-
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding Schedules}"
+                  VerticalScrollBarVisibility="Visible"
+                  HorizontalScrollBarVisibility="Visible">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Jeopardy}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type sys:Boolean}">
+                            <Style.Triggers>
+                                <Trigger Property="Boolean" Value="True">
+                                    <Setter Property="Background" Value="LightGreen"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+            
+        </DataGrid>
         <!--#endregion-->
 
         <!--#region Slider-->
         <Slider Grid.Row="2"
                 Margin='2 0 2 0'
-                x:Name="slider"
                 Value="{Binding SliderPosition, UpdateSourceTrigger=PropertyChanged}"
                 Style="{DynamicResource CustomSlider}"
                 TickPlacement="BottomRight"

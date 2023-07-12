@@ -6,9 +6,9 @@ namespace Schedule_WPF.CustomControls.Controls
     public partial class DividingLine : Canvas
     {
         #region Public property 
-        public int Position
+        public double Position
         {
-            get => (int)GetValue(PositionProperty);
+            get => (double)GetValue(PositionProperty);
             set
             {
                 SetValue(PositionProperty, value);
@@ -32,7 +32,7 @@ namespace Schedule_WPF.CustomControls.Controls
         #region DependencyProperty
         public static readonly DependencyProperty MinuteProperty = DependencyProperty.Register(nameof(Minute), typeof(int), typeof(DividingLine),
                                new PropertyMetadata(MinutePropertyChanged));
-        public static readonly DependencyProperty PositionProperty = DependencyProperty.Register(nameof(Position), typeof(int), typeof(DividingLine),
+        public static readonly DependencyProperty PositionProperty = DependencyProperty.Register(nameof(Position), typeof(double), typeof(DividingLine),
                               new PropertyMetadata(PositionPropertyChanged));
         #endregion
 

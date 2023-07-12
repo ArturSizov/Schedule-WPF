@@ -60,10 +60,11 @@ namespace Schedule_WPF.CustomControls.Controls
         #region Methods 
         private StackPanel CreateFullRuler()
         {
-            var stackPanel = new StackPanel();
-
-            stackPanel.Orientation = Orientation.Horizontal;
-
+            var stackPanel = new StackPanel
+            {
+                Orientation = Orientation.Horizontal
+            };
+            
             var n = Convert.ToInt32(60) / 5;
 
             if (n == 0) throw new Exception("Ruler value 0");
@@ -71,7 +72,7 @@ namespace Schedule_WPF.CustomControls.Controls
             for (int i = 0; i < n; i++)
             {
                 stackPanel.Children.Add(CreateOneRuler());
-                count = count + 5;
+                count += 5;
             }
             return stackPanel;
         }      
@@ -92,9 +93,12 @@ namespace Schedule_WPF.CustomControls.Controls
         private Grid CreateOneRuler()
         {
             var grid = new Grid();
-            var text = new TextBlock();
-            text.Margin = new Thickness(2, -5, 0, 0);
-            text.Text = $"{count}";
+            var text = new TextBlock
+            {
+                Margin = new Thickness(2, -5, 0, 0),
+                Text = $"{count}"
+            };
+            
             grid.Children.Add(text);
             grid.Children.Add(CreateLine(0, 15, 125, 15));
             grid.Children.Add(CreateLine(0, -5, 0, 15));

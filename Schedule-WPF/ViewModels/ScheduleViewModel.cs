@@ -29,7 +29,17 @@ namespace Schedule_WPF.ViewModels
         #region Public property 
         public string Title => "Schedule";
         public List<DateTime> Dates { get => dates; set => SetProperty(ref dates, value); } 
-        public DateTime MainWindowDate { get => mainWindowDate; set => SetProperty(ref mainWindowDate, value); } 
+        public DateTime MainWindowDate 
+        { 
+            get 
+            {
+                if (Dates.Count == sliderPosition)
+                    mainWindowDate = Dates[(sliderPosition - 1) / 1500];
+                else mainWindowDate = Dates[sliderPosition / 1500];
+                return mainWindowDate; 
+            } 
+            set => SetProperty(ref mainWindowDate, value); 
+        }
         public DateTime StartDateTime { get => startDateTime; set => SetProperty(ref startDateTime, value); }
         public DateTime EndDateTime { get => endDateTime; set => SetProperty(ref endDateTime, value); }
         public int Pending { get => pending; set => SetProperty(ref pending, value); }
@@ -51,9 +61,7 @@ namespace Schedule_WPF.ViewModels
         {
             get
             {
-                if (Dates.Count == sliderPosition)
-                    MainWindowDate = Dates[(sliderPosition - 1) /1500];
-                else MainWindowDate = Dates[sliderPosition / 1500];
+                RaisePropertyChanged(nameof(MainWindowDate));
                 return sliderPosition;
             }
             set => SetProperty(ref sliderPosition, value);
@@ -71,26 +79,8 @@ namespace Schedule_WPF.ViewModels
                     Completed = true,
                     Jeopardy = false,
                     Id = 1,
-                    StartDateTime = new DateTime(2023, 7, 4, 10, 00, 00),
-                    EndDateTime = new DateTime(2023, 7, 4, 13, 00, 00)
-                },
-                new Schedule
-                {
-                    Pending = true,
-                    Completed = true,
-                    Jeopardy = false,
-                    Id = 1,
-                    StartDateTime = new DateTime(2023, 7, 4, 12, 00, 00),
-                    EndDateTime = new DateTime(2023, 7, 4, 15, 00, 00)
-                },
-                new Schedule
-                {
-                    Pending = true,
-                    Completed = true,
-                    Jeopardy = false,
-                    Id = 1,
-                    StartDateTime = new DateTime(2023, 7, 14, 10, 00, 00),
-                    EndDateTime = new DateTime(2023, 7, 11, 16, 00, 00)
+                    StartDateTime = new DateTime(2023, 7, 11, 10, 00, 00),
+                    EndDateTime = new DateTime(2023, 7, 13, 16, 00, 00)
                 },
             };
             StartApp();
@@ -100,9 +90,7 @@ namespace Schedule_WPF.ViewModels
         private void StartApp()
         {
             Timing();
-
             StartTimer();
-
             foreach (var item in Schedules)
             {
                 if (item.Jeopardy == true)
@@ -112,19 +100,15 @@ namespace Schedule_WPF.ViewModels
                 if (item.Pending == true)
                     Jeopardy++;
             }
-
         }
         private void SetPosition(object? sender, ElapsedEventArgs? e)
         {
             Minute = (int)DateTime.Now.Subtract(StartDateTime).TotalMinutes * 25;
 
-            //Minute = Dates.Count * 60 * 25;
-
-            //var min = DateTime.Now.Hour;
-
-            //SliderPosition = Minute;
+            SliderPosition = Minute-(1024/2);
             RaisePropertyChanged(nameof(Minute));
             RaisePropertyChanged(nameof(SliderPosition));
+            
         }
         private void StartTimer()
         {
@@ -143,9 +127,7 @@ namespace Schedule_WPF.ViewModels
             EndDateTime = Schedules.Max(a => a.EndDateTime);
 
             for (var dt = StartDateTime; dt <= EndDateTime; dt = dt.AddHours(1))
-            {
                 Dates.Add(dt);
-            }
 
             MainWindowDate = Dates[SliderPosition];
         }
