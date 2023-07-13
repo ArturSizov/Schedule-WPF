@@ -24,6 +24,22 @@
         <converter:SliderMaximumConverter x:Key="SliderMaximumConverter"/>
         <converter:DividingLineVisibilityConverter x:Key="DividingLineVisibilityConverter"/>
         <converter:SliderPositionConverter x:Key="SliderPositionConverter"/>
+
+        <DrawingBrush x:Key="MyGridBrushResource" Viewport="0,0,10,10" ViewportUnits="Absolute" TileMode="Tile">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <DrawingGroup.Children>
+                        <GeometryDrawing Brush="#99FFFFFF">
+                            <GeometryDrawing.Geometry>
+                                <RectangleGeometry Rect="0,0,1,1" />
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                        <GeometryDrawing Geometry="M0,0 L1,0 1,0.1, 0,0.1Z" Brush="#66CCCCFF" />
+                        <GeometryDrawing Geometry="M0,0 L0,1 0.1,1, 0.1,0Z" Brush="#66CCCCFF" />
+                    </DrawingGroup.Children>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -87,25 +103,7 @@
         <!--#endregion-->
 
         <!--#region Grid-->
-        <DataGrid Grid.Row="1"
-                  ItemsSource="{Binding Schedules}"
-                  VerticalScrollBarVisibility="Visible"
-                  HorizontalScrollBarVisibility="Visible">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Jeopardy}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="{x:Type sys:Boolean}">
-                            <Style.Triggers>
-                                <Trigger Property="Boolean" Value="True">
-                                    <Setter Property="Background" Value="LightGreen"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-            </DataGrid.Columns>
-            
-        </DataGrid>
+        
         <!--#endregion-->
 
         <!--#region Slider-->

@@ -33,7 +33,7 @@ namespace Schedule_WPF.ViewModels
         { 
             get 
             {
-                if (Dates.Count == sliderPosition)
+                if (Dates.Count <= sliderPosition / 1500)
                     mainWindowDate = Dates[(sliderPosition - 1) / 1500];
                 else mainWindowDate = Dates[sliderPosition / 1500];
                 return mainWindowDate; 
@@ -79,8 +79,8 @@ namespace Schedule_WPF.ViewModels
                     Completed = true,
                     Jeopardy = false,
                     Id = 1,
-                    StartDateTime = new DateTime(2023, 7, 11, 10, 00, 00),
-                    EndDateTime = new DateTime(2023, 7, 13, 16, 00, 00)
+                    StartDateTime = new DateTime(2023, 7, 13, 20, 00, 00),
+                    EndDateTime = new DateTime(2023, 7, 13, 23, 00, 00)
                 },
             };
             StartApp();
@@ -101,7 +101,7 @@ namespace Schedule_WPF.ViewModels
                     Jeopardy++;
             }
         }
-        private void SetPosition(object? sender, ElapsedEventArgs? e)
+        private void OnSetPosition(object? sender, ElapsedEventArgs? e)
         {
             Minute = (int)DateTime.Now.Subtract(StartDateTime).TotalMinutes * 25;
 
@@ -112,13 +112,13 @@ namespace Schedule_WPF.ViewModels
         }
         private void StartTimer()
         {
-            SetPosition(null, null);
+            OnSetPosition(null, null);
 
             var timer = new Timer
             {
                 Interval = 10000
             };
-            timer.Elapsed += SetPosition;
+            timer.Elapsed += OnSetPosition;
             timer.Start();
         }
         private void Timing()
